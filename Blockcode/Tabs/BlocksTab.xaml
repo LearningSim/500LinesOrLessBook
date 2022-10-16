@@ -1,0 +1,31 @@
+<UserControl x:Class="Blockcode.BlocksTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Blockcode"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Border BorderThickness=".5,0,0,0" BorderBrush="Transparent">
+        <Border BorderThickness="0,0,.5,0" BorderBrush="LightGray">
+            <DockPanel Margin="10, 0,0,0">
+                <TextBlock DockPanel.Dock="Top" Text="Blocks" FontSize="14" Foreground="CornflowerBlue"
+                           FontWeight="DemiBold" Margin="0, 10" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="0,0,10,0">
+                        <local:Block Label="Repeat" Value="10" IsContainer="True" />
+                        <local:Block Label="Turn left" Value="5" Units="degrees" Action="{Binding TurnLeft}" />
+                        <local:Block Label="Turn right" Value="5" Units="degrees" Action="{Binding TurnRight}" />
+                        <local:Block Label="Forward" Value="10" Units="steps" Action="{Binding Forward}" />
+                        <local:Block Label="Back" Value="10" Units="steps" Action="{Binding Back}" />
+                        <local:Block Label="Pen up" Action="{Binding PenUp}" />
+                        <local:Block Label="Pen down" Action="{Binding PenDown}" />
+                        <local:Block Label="Back to center" />
+                        <local:Block Label="Hide turtle" />
+                        <local:Block Label="Show turtle" />
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+    </Border>
+</UserControl>

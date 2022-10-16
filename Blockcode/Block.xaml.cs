@@ -1,28 +1,34 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Markup;
 
 namespace Blockcode
 {
     [ContentProperty(nameof(Children))]
-    public partial class Block : UserControl
+    public partial class Block : ExtendedUserControl
     {
+        public bool IsStub { get; set; }
         public string Label { get; set; } = "Block Name";
         public int? Value { get; set; }
         public Visibility ValueVisibility => Value == null ? Visibility.Collapsed : Visibility.Visible;
         public string Units { get; set; }
 
-        public static readonly DependencyProperty ChildrenProperty = DependencyProperty.Register(
-            nameof(Children), typeof(UIElementCollection), typeof(Block)
-        );
+        private static readonly DependencyProperty ActionProp = RegProp(nameof(Action), typeof(Block));
 
-        public UIElementCollection Children
+        public Action<Block> Action
         {
-            get => (UIElementCollection)GetValue(ChildrenProperty);
-            private set => SetValue(ChildrenProperty, value);
+            get => (Action<Block>)GetValue(ActionProp);
+            set => SetValue(ActionProp, value);
         }
+
+        public UIElementCollection Children { get; private set; }
+        public bool IsContainer { get; set; }
+        public bool HasStub { get; set; }
+        private static readonly Thickness tabMargin = new Thickness(14, 0, 0, 0);
 
         public Block()
         {
@@ -32,22 +38,27 @@ namespace Blockcode
             Loaded += OnLoad;
         }
 
-        public Block(string label, int? value = null, string units = null, List<UIElement> children = null)
+        public Block(string label, int? value = null, string units = null, List<Block> children = null, bool isStub = false)
         {
             Label = label;
             Value = value;
             Units = units;
+            IsStub = isStub;
             InitializeComponent();
             DataContext = this;
             Children = ChildrenContainer.Children;
             children?.ForEach(child => Children.Add(child));
+            if (children?.Any() == true)
+            {
+                IsContainer = true;
+            }
+
             Loaded += OnLoad;
         }
 
-        public List<object> GetScript()
+        public List<object> GetToken()
         {
-            var script = new List<object>();
-            script.Add(Label);
+            var script = new List<object> { Label };
             if (Value.HasValue)
             {
                 script.Add(Value);
@@ -56,28 +67,52 @@ namespace Blockcode
             var children = GetChildren();
             if (children.Any())
             {
-                script.AddRange(children.Select(child => child.GetScript()));
-            }
-
-            if (Units != null)
-            {
-                script.Add(Units);
+                script.AddRange(children.Select(child => child.GetToken()));
             }
 
             return script;
         }
+        
+        public Block Clone()
+        {
+            var children = GetChildren().Select(c => c.Clone()).ToList();
+            var clone = new Block(Label, Value, Units, children, IsStub){Margin = tabMargin, HasStub = HasStub};
+            return clone;
+        }
+
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            DragDrop.DoDragDrop(this, this, DragDropEffects.Copy);
+            e.Handled = true;
+        }
+
+        protected override void OnDrop(DragEventArgs e)
+        {
+            if(!(e.Data.GetData(GetType()) is Block block)) return;
+            
+            Children.Add(block.Clone());
+            e.Handled = true;
+        }
 
         private void OnLoad(object sender, RoutedEventArgs args)
         {
-            //Logger.Log($"{Label} {string.Join(",", Children.OfType<UIElement>())}");
+            if (IsContainer && !HasStub)
+            {
+                Children.Add(new Block("", isStub: true));
+                HasStub = true;
+            }
+
             foreach (Block child in Children)
             {
-                var margin = child.Margin;
-                margin.Left += 10;
-                child.Margin = margin;
+                child.Margin = tabMargin;
             }
         }
 
         private IReadOnlyList<Block> GetChildren() => Children.OfType<Block>().ToList();
+
+        public override string ToString()
+        {
+            return $"{GetType().Name}({Label}, {Value})";
+        }
     }
 }

@@ -1,13 +1,18 @@
-﻿namespace Blockcode
+﻿using System.Windows;
+
+namespace Blockcode
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += OnLoad;
+            BlocksTab.OutputTab = OutputTab;
+        }
+
+        private void OnLoad(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

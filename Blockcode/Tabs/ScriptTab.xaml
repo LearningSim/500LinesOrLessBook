@@ -1,0 +1,31 @@
+<UserControl x:Class="Blockcode.ScriptTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Blockcode"
+             mc:Ignorable="d"
+             MinWidth="200"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Border BorderThickness=".5,0,0,0" BorderBrush="Transparent">
+        <Border BorderThickness="0,0,.5,0" BorderBrush="LightGray">
+            <DockPanel Margin="10, 0,0,0">
+                <TextBlock DockPanel.Dock="Top" Text="Script" FontSize="14" Foreground="CornflowerBlue"
+                           FontWeight="DemiBold" Margin="0, 10" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="0,0,10,0">
+                        <local:Block></local:Block>
+                        <local:Block Label="Repeat" Value="5" IsContainer="True">
+                            <local:Block Label="Rotate" Value="20" Units="degs" IsContainer="True">
+                                <local:Block Label="Rotate 2" Value="20" Units="degs"></local:Block>
+                                <local:Block Label="Rotate 2" Value="20" Units="degs"></local:Block>
+                            </local:Block>
+                            <local:Block Label="Rotate" Value="20" Units="degs">
+                            </local:Block>
+                        </local:Block>
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+    </Border>
+</UserControl>

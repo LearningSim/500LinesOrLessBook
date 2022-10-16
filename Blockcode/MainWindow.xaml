@@ -5,29 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Blockcode"
         mc:Ignorable="d"
-        Title="Block Code" Height="350" Width="525">
+        Title="Block Code" Height="500" Width="800">
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <StackPanel Margin="10, 0">
-                <TextBlock Text="Blocks" FontSize="14" Margin="0, 10"></TextBlock>
-                <local:Block Label="Repeat" Value="5"/>
-                <local:Block Label="Rotate" Value="5" Units="degrees"/>
-                <local:Block Label="Repeat" Value="5"/>
-            </StackPanel>
-            <StackPanel Margin="10, 0">
-                <TextBlock Text="Script" FontSize="14" Margin="0, 10"></TextBlock>
-                <local:Block></local:Block>
-                <local:Block Label="Repeat" Value="5">
-                    <local:Block Label="Rotate" Value="20" Units="degs">
-                        <local:Block Label="Rotate 2" Value="20" Units="degs"></local:Block>
-                        <local:Block Label="Rotate 2" Value="20" Units="degs"></local:Block>
-                    </local:Block>
-                    <local:Block Label="Rotate" Value="20" Units="degs">
-                    </local:Block>
-                </local:Block>
-            </StackPanel>
-            <StackPanel Margin="10, 0">
-            </StackPanel>
-        </StackPanel>
+        <DockPanel>
+            <local:BlocksTab x:Name="BlocksTab" />
+            <local:ScriptTab x:Name="ScriptTab" />
+            <local:OutputTab x:Name="OutputTab" />
+        </DockPanel>
     </Grid>
 </Window>
