@@ -12,15 +12,18 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
-    <StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="0,0,0,0" Text="· · ·" FontWeight="Heavy" Foreground="LightGray"
-                       Visibility="{Binding IsStub, Converter={StaticResource BoolToVis} }" />
-            <TextBlock Margin="0,0,0,0" Text="{Binding Label, StringFormat= '\{0\} '}" />
-            <TextBox MinWidth="20" FontSize="16" VerticalAlignment="Bottom" Margin="0, 0,0,5" Text="{Binding Value}"
-                     Visibility="{Binding ValueVisibility}" />
-            <TextBlock Margin="0,0,0,0" Text="{Binding Units, StringFormat= ' \{0\}'}" />
+    <Border BorderBrush="Transparent" BorderThickness=".5" x:Name="Border">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="· · ·" FontWeight="Heavy" Foreground="LightGray" Width="100"
+                           Visibility="{Binding IsStub, Converter={StaticResource BoolToVis} }" />
+                <TextBlock Text="{Binding Label, StringFormat= '\{0\} '}" />
+                <TextBox MinWidth="20" FontSize="16" VerticalAlignment="Bottom" Margin="0, 0,0,5"
+                         Text="{Binding Value}"
+                         Visibility="{Binding ValueVisibility}" />
+                <TextBlock Text="{Binding Units, StringFormat= ' \{0\}'}" />
+            </StackPanel>
+            <blockcode:BlockStackPanel x:Name="ChildrenHolder" />
         </StackPanel>
-        <StackPanel x:Name="ChildrenContainer" />
-    </StackPanel>
+    </Border>
 </blockcode:ExtendedUserControl>

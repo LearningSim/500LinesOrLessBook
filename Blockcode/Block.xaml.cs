@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Markup;
 
 namespace Blockcode
@@ -27,15 +26,18 @@ namespace Blockcode
 
         public UIElementCollection Children { get; private set; }
         public bool IsContainer { get; set; }
-        public bool HasStub { get; set; }
-        private static readonly Thickness tabMargin = new Thickness(14, 0, 0, 0);
+        private bool HasStub { get; set; }
+        private static readonly Thickness TabPadding = new Thickness(14, 0, 0, 0);
+        private static readonly Thickness ZeroPadding = new Thickness();
 
         public Block()
         {
             InitializeComponent();
             DataContext = this;
-            Children = ChildrenContainer.Children;
+            Children = ChildrenHolder.Children;
             Loaded += OnLoad;
+            ChildrenHolder.ChildAdded += OnChildAdded;
+            ChildrenHolder.ChildRemoved += OnChildRemoved;
         }
 
         public Block(string label, int? value = null, string units = null, List<Block> children = null, bool isStub = false)
@@ -46,7 +48,7 @@ namespace Blockcode
             IsStub = isStub;
             InitializeComponent();
             DataContext = this;
-            Children = ChildrenContainer.Children;
+            Children = ChildrenHolder.Children;
             children?.ForEach(child => Children.Add(child));
             if (children?.Any() == true)
             {
@@ -54,6 +56,8 @@ namespace Blockcode
             }
 
             Loaded += OnLoad;
+            ChildrenHolder.ChildAdded += OnChildAdded;
+            ChildrenHolder.ChildRemoved += OnChildRemoved;
         }
 
         public List<object> GetToken()
@@ -76,22 +80,8 @@ namespace Blockcode
         public Block Clone()
         {
             var children = GetChildren().Select(c => c.Clone()).ToList();
-            var clone = new Block(Label, Value, Units, children, IsStub){Margin = tabMargin, HasStub = HasStub};
+            var clone = new Block(Label, Value, Units, children, IsStub){HasStub = HasStub};
             return clone;
-        }
-
-        protected override void OnMouseDown(MouseButtonEventArgs e)
-        {
-            DragDrop.DoDragDrop(this, this, DragDropEffects.Copy);
-            e.Handled = true;
-        }
-
-        protected override void OnDrop(DragEventArgs e)
-        {
-            if(!(e.Data.GetData(GetType()) is Block block)) return;
-            
-            Children.Add(block.Clone());
-            e.Handled = true;
         }
 
         private void OnLoad(object sender, RoutedEventArgs args)
@@ -104,11 +94,29 @@ namespace Blockcode
 
             foreach (Block child in Children)
             {
-                child.Margin = tabMargin;
+                child.Border.Padding = TabPadding;
             }
         }
 
-        private IReadOnlyList<Block> GetChildren() => Children.OfType<Block>().ToList();
+        private void OnChildAdded(BlockStackPanel _, Block child)
+        {
+            child.Border.Padding = TabPadding;
+        }
+
+        private void OnChildRemoved(BlockStackPanel _, Block child)
+        {
+            child.Border.Padding = ZeroPadding;
+        }
+
+        public IReadOnlyList<Block> GetChildren() => Children.OfType<Block>().ToList();
+        private UIElementCollection GetSiblings() => (Parent as Panel)?.Children;
+
+        public void Remove() => GetSiblings().Remove(this);
+        public void AddBefore(Block block)
+        {
+            var siblings = block.GetSiblings();
+            siblings.Insert(siblings.IndexOf(block), this);
+        }
 
         public override string ToString()
         {

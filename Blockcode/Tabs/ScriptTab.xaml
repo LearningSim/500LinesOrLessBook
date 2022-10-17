@@ -12,18 +12,16 @@
             <DockPanel Margin="10, 0,0,0">
                 <TextBlock DockPanel.Dock="Top" Text="Script" FontSize="14" Foreground="CornflowerBlue"
                            FontWeight="DemiBold" Margin="0, 10" />
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="0,0,10,0">
-                        <local:Block></local:Block>
-                        <local:Block Label="Repeat" Value="5" IsContainer="True">
-                            <local:Block Label="Rotate" Value="20" Units="degs" IsContainer="True">
-                                <local:Block Label="Rotate 2" Value="20" Units="degs"></local:Block>
-                                <local:Block Label="Rotate 2" Value="20" Units="degs"></local:Block>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Focusable="False">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Margin="0,0,10,0" x:Name="BlocksHolder">
+                            <local:Block Label="Repeat" Value="3" IsContainer="True">
+                                <local:Block Label="Left" Value="120" Units="degrees" />
+                                <local:Block Label="Forward" Value="90" Units="steps" />
                             </local:Block>
-                            <local:Block Label="Rotate" Value="20" Units="degs">
-                            </local:Block>
-                        </local:Block>
-                    </StackPanel>
+                        </StackPanel>
+                        <Canvas x:Name="BlankArea" AllowDrop="True" Background="Transparent" MinHeight="40"></Canvas>
+                    </DockPanel>
                 </ScrollViewer>
             </DockPanel>
         </Border>
