@@ -17,11 +17,11 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="· · ·" FontWeight="Heavy" Foreground="LightGray" Width="100"
                            Visibility="{Binding IsStub, Converter={StaticResource BoolToVis} }" />
-                <TextBlock Text="{Binding Label, StringFormat= '\{0\} '}" />
+                <TextBlock Text="{Binding Label, StringFormat= '\{0\} '}" Foreground="{Binding LabelColor}" />
                 <TextBox MinWidth="20" FontSize="16" VerticalAlignment="Bottom" Margin="0, 0,0,5"
                          Text="{Binding Value}"
                          Visibility="{Binding ValueVisibility}" />
-                <TextBlock Text="{Binding Units, StringFormat= ' \{0\}'}" />
+                <TextBlock Text="{Binding Units, StringFormat= ' \{0\}'}" Foreground="#d65cd6" />
             </StackPanel>
             <blockcode:BlockStackPanel x:Name="ChildrenHolder" />
         </StackPanel>

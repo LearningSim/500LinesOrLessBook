@@ -60,7 +60,7 @@ namespace Blockcode
         private void BlocksTabOnDrop(object sender, DragEventArgs e)
         {
             e.Handled = true;
-            if (!(e.Data.GetData(typeof(Block)) is Block dropped)) return;
+            if (!(e.Data.GetData(e.Data.GetFormats()[0]) is Block dropped)) return;
 
             if (startTab == ScriptTab)
             {
@@ -71,7 +71,7 @@ namespace Blockcode
         private void ScriptTabOnDrop(object sender, DragEventArgs e)
         {
             e.Handled = true;
-            if (!(e.Data.GetData(typeof(Block)) is Block dropped)) return;
+            if (!(e.Data.GetData(e.Data.GetFormats()[0]) is Block dropped)) return;
 
             var targetBlock = sender as Block;
             if (dropped == sender) return;

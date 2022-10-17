@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace Blockcode
 {
@@ -12,6 +13,7 @@ namespace Blockcode
     {
         public bool IsStub { get; set; }
         public string Label { get; set; } = "Block Name";
+        public Brush LabelColor { get; set; } = Brushes.Black;
         public int? Value { get; set; }
         public Visibility ValueVisibility => Value == null ? Visibility.Collapsed : Visibility.Visible;
         public string Units { get; set; }
@@ -40,12 +42,14 @@ namespace Blockcode
             ChildrenHolder.ChildRemoved += OnChildRemoved;
         }
 
-        public Block(string label, int? value = null, string units = null, List<Block> children = null, bool isStub = false)
+        private Block(string label, Brush labelColor = null, int? value = null, string units = null, List<Block> children = null, bool isStub = false, bool hasStub = false)
         {
             Label = label;
+            LabelColor = labelColor;
             Value = value;
             Units = units;
             IsStub = isStub;
+            HasStub = hasStub;
             InitializeComponent();
             DataContext = this;
             Children = ChildrenHolder.Children;
@@ -80,7 +84,7 @@ namespace Blockcode
         public Block Clone()
         {
             var children = GetChildren().Select(c => c.Clone()).ToList();
-            var clone = new Block(Label, Value, Units, children, IsStub){HasStub = HasStub};
+            var clone = new Block(Label, LabelColor, Value, Units, children, IsStub, HasStub);
             return clone;
         }
 

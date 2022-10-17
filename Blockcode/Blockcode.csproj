@@ -51,6 +51,9 @@
             <SubType>Designer</SubType>
         </ApplicationDefinition>
         <Compile Include="BlockStackPanel.cs" />
+        <Compile Include="Blocks\Block.xaml.cs">
+          <DependentUpon>Block.xaml</DependentUpon>
+        </Compile>
         <Compile Include="ExtendedUserControl.cs" />
         <Compile Include="Tabs\BlocksTab.xaml.cs">
           <DependentUpon>BlocksTab.xaml</DependentUpon>
@@ -61,7 +64,7 @@
         <Compile Include="Tabs\ScriptTab.xaml.cs">
           <DependentUpon>ScriptTab.xaml</DependentUpon>
         </Compile>
-        <Page Include="Block.xaml" />
+        <Page Include="Blocks\Block.xaml" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
@@ -69,9 +72,6 @@
         <Compile Include="App.xaml.cs">
             <DependentUpon>App.xaml</DependentUpon>
             <SubType>Code</SubType>
-        </Compile>
-        <Compile Include="Block.xaml.cs">
-          <DependentUpon>Block.xaml</DependentUpon>
         </Compile>
         <Compile Include="Script.cs" />
         <Compile Include="Logger.cs" />
