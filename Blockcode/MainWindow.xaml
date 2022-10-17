@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Blockcode"
         mc:Ignorable="d"
-        Title="Block Code" Height="500" Width="800">
+        Title="Block Code" Height="600" Width="1000">
     <Grid>
         <DockPanel>
             <local:BlocksTab x:Name="BlocksTab" />

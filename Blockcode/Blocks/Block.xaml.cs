@@ -34,15 +34,11 @@ namespace Blockcode
 
         public Block()
         {
-            InitializeComponent();
-            DataContext = this;
-            Children = ChildrenHolder.Children;
-            Loaded += OnLoad;
-            ChildrenHolder.ChildAdded += OnChildAdded;
-            ChildrenHolder.ChildRemoved += OnChildRemoved;
+            Init();
         }
 
-        private Block(string label, Brush labelColor = null, int? value = null, string units = null, List<Block> children = null, bool isStub = false, bool hasStub = false)
+        private Block(string label, Brush labelColor = null, int? value = null, string units = null,
+            List<Block> children = null, bool isStub = false, bool hasStub = false)
         {
             Label = label;
             LabelColor = labelColor;
@@ -50,18 +46,43 @@ namespace Blockcode
             Units = units;
             IsStub = isStub;
             HasStub = hasStub;
-            InitializeComponent();
-            DataContext = this;
-            Children = ChildrenHolder.Children;
+
+            Init();
             children?.ForEach(child => Children.Add(child));
             if (children?.Any() == true)
             {
                 IsContainer = true;
             }
+        }
+
+        private void Init()
+        {
+            InitializeComponent();
+            DataContext = this;
+            Children = ChildrenHolder.Children;
 
             Loaded += OnLoad;
             ChildrenHolder.ChildAdded += OnChildAdded;
             ChildrenHolder.ChildRemoved += OnChildRemoved;
+        }
+
+        private void OnLoad(object sender, RoutedEventArgs args)
+        {
+            if (IsContainer && !HasStub)
+            {
+                Children.Add(new Block("", isStub: true));
+                HasStub = true;
+            }
+        }
+
+        private void OnChildAdded(BlockStackPanel _, Block child)
+        {
+            child.Border.Padding = TabPadding;
+        }
+
+        private void OnChildRemoved(BlockStackPanel _, Block child)
+        {
+            child.Border.Padding = ZeroPadding;
         }
 
         public List<object> GetToken()
@@ -80,42 +101,18 @@ namespace Blockcode
 
             return script;
         }
-        
+
         public Block Clone()
         {
             var children = GetChildren().Select(c => c.Clone()).ToList();
-            var clone = new Block(Label, LabelColor, Value, Units, children, IsStub, HasStub);
-            return clone;
-        }
-
-        private void OnLoad(object sender, RoutedEventArgs args)
-        {
-            if (IsContainer && !HasStub)
-            {
-                Children.Add(new Block("", isStub: true));
-                HasStub = true;
-            }
-
-            foreach (Block child in Children)
-            {
-                child.Border.Padding = TabPadding;
-            }
-        }
-
-        private void OnChildAdded(BlockStackPanel _, Block child)
-        {
-            child.Border.Padding = TabPadding;
-        }
-
-        private void OnChildRemoved(BlockStackPanel _, Block child)
-        {
-            child.Border.Padding = ZeroPadding;
+            return new Block(Label, LabelColor, Value, Units, children, IsStub, HasStub);
         }
 
         public IReadOnlyList<Block> GetChildren() => Children.OfType<Block>().ToList();
         private UIElementCollection GetSiblings() => (Parent as Panel)?.Children;
 
         public void Remove() => GetSiblings().Remove(this);
+
         public void AddBefore(Block block)
         {
             var siblings = block.GetSiblings();

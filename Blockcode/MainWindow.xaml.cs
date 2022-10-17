@@ -37,24 +37,19 @@ namespace Blockcode
             AddHandlerRecursively(block, b => b.Drop += ScriptTabOnDrop);
         }
 
-        private void BlocksTabOnMouseDown(object sender, MouseButtonEventArgs e)
+        private void BlocksTabOnMouseDown(object sender, MouseButtonEventArgs e) =>
+            OnMouseDown(BlocksTab, (Block)sender, e);
+
+        private void ScriptTabOnMouseDown(object sender, MouseButtonEventArgs e) =>
+            OnMouseDown(ScriptTab, (Block)sender, e);
+
+        private void OnMouseDown(UserControl tab, Block block, MouseButtonEventArgs e)
         {
             e.Handled = true;
-            var block = (Block)sender;
             if (block.IsStub) return;
 
-            startTab = BlocksTab;
-            DragDrop.DoDragDrop(block, block, DragDropEffects.Copy);
-        }
-
-        private void ScriptTabOnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            e.Handled = true;
-            var block = (Block)sender;
-            if (block.IsStub) return;
-
-            startTab = ScriptTab;
-            DragDrop.DoDragDrop(block, block, DragDropEffects.Move);
+            startTab = tab;
+            DragDrop.DoDragDrop(block, block, tab == BlocksTab ? DragDropEffects.Copy : DragDropEffects.Move);
         }
 
         private void BlocksTabOnDrop(object sender, DragEventArgs e)
@@ -112,7 +107,7 @@ namespace Blockcode
                 if (!added.IsStub) return;
                 addHandler(added);
             };
-            
+
             foreach (var child in block.GetChildren())
             {
                 AddHandlerRecursively(child, addHandler);
