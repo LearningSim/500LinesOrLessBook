@@ -7,23 +7,28 @@
                                mc:Ignorable="d"
                                FontSize="20"
                                AllowDrop="True"
+                               Background="White"
                                d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
     <Border BorderBrush="Transparent" BorderThickness=".5" x:Name="Border" Margin="0, 4">
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="· · ·" FontWeight="Heavy" Foreground="LightGray" Width="100"
-                           Visibility="{Binding IsStub, Converter={StaticResource BoolToVis} }" />
-                <TextBlock Text="{Binding Label, StringFormat= '\{0\} '}" Foreground="{Binding LabelColor}" />
-                <TextBox MinWidth="20" FontSize="18" VerticalAlignment="Bottom" 
-                         Padding="0, 0,0,-2" Margin="0, 0,0,2"
-                         Text="{Binding Value}" BorderThickness="0,0,0,1"
-                         Visibility="{Binding ValueVisibility}" />
-                <TextBlock Text="{Binding Units, StringFormat= ' \{0\}'}" Foreground="#d65cd6" />
+        <Grid>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="· · ·" FontWeight="Heavy" Foreground="LightGray"
+                               Visibility="{Binding IsStub, Converter={StaticResource BoolToVis} }" />
+                    <TextBlock Text="{Binding Label, StringFormat= '\{0\} '}" Foreground="{Binding LabelColor}" />
+                    <TextBox MinWidth="20" FontSize="18" VerticalAlignment="Bottom"
+                             Padding="0, 0,0,-2" Margin="0, 0,0,2"
+                             Text="{Binding Value}" BorderThickness="0,0,0,1"
+                             Visibility="{Binding ValueVisibility}" />
+                    <TextBlock Text="{Binding Units, StringFormat= ' \{0\}'}" Foreground="#d65cd6" />
+                </StackPanel>
+                <blockcode:BlockStackPanel x:Name="ChildrenHolder" />
             </StackPanel>
-            <blockcode:BlockStackPanel x:Name="ChildrenHolder" />
-        </StackPanel>
+            <Border BorderBrush="SlateBlue" BorderThickness="0,2,0,0" Visibility="Collapsed"
+                    x:Name="DropIndicator" />
+        </Grid>
     </Border>
 </blockcode:ExtendedUserControl>

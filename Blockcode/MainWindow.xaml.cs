@@ -35,6 +35,20 @@ namespace Blockcode
         {
             AddHandlerRecursively(block, b => b.MouseDown += ScriptTabOnMouseDown);
             AddHandlerRecursively(block, b => b.Drop += ScriptTabOnDrop);
+            AddHandlerRecursively(block, b => b.DragEnter += OnDragEnter);
+            AddHandlerRecursively(block, b => b.DragLeave += OnDragLeave);
+        }
+
+        private void OnDragEnter(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            ((Block)sender).ShowDropIndicator();
+        }
+
+        private void OnDragLeave(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            ((Block)sender).HideDropIndicator();
         }
 
         private void BlocksTabOnMouseDown(object sender, MouseButtonEventArgs e) =>
@@ -65,7 +79,7 @@ namespace Blockcode
 
         private void ScriptTabOnDrop(object sender, DragEventArgs e)
         {
-            e.Handled = true;
+            OnDragLeave(sender, e);
             if (!(e.Data.GetData(e.Data.GetFormats()[0]) is Block dropped)) return;
 
             var targetBlock = sender as Block;

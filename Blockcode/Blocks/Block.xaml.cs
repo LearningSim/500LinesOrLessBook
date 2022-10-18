@@ -83,10 +83,7 @@ namespace Blockcode
             ChildrenHolder.Margin = lineSpacing;
         }
 
-        private void OnChildRemoved(BlockStackPanel _, Block child)
-        {
-            child.Border.Padding = ZeroPadding;
-        }
+        private void OnChildRemoved(BlockStackPanel _, Block child) => child.Border.Padding = ZeroPadding;
 
         public List<object> GetToken()
         {
@@ -104,6 +101,9 @@ namespace Blockcode
 
             return script;
         }
+
+        public void ShowDropIndicator() => DropIndicator.Visibility = Visibility.Visible;
+        public void HideDropIndicator() => DropIndicator.Visibility = Visibility.Collapsed;
 
         public Block Clone()
         {
