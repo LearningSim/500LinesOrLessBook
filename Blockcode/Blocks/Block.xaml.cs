@@ -78,6 +78,9 @@ namespace Blockcode
         private void OnChildAdded(BlockStackPanel _, Block child)
         {
             child.Border.Padding = TabPadding;
+            var lineSpacing = new Thickness(0, 4, 0, 0);
+            Border.Margin = lineSpacing;
+            ChildrenHolder.Margin = lineSpacing;
         }
 
         private void OnChildRemoved(BlockStackPanel _, Block child)
