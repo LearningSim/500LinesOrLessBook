@@ -29,8 +29,8 @@ namespace Blockcode
         public UIElementCollection Children { get; private set; }
         public bool IsContainer { get; set; }
         private bool HasStub { get; set; }
-        private static readonly Thickness TabPadding = new Thickness(14, 0, 0, 0);
-        private static readonly Thickness ZeroPadding = new Thickness();
+        private static readonly Thickness Indent = new Thickness(26, 0, 0, 0);
+        private static readonly Thickness ZeroIndent = new Thickness();
 
         public Block()
         {
@@ -77,13 +77,14 @@ namespace Blockcode
 
         private void OnChildAdded(BlockStackPanel _, Block child)
         {
-            child.Border.Padding = TabPadding;
+            child.Border.Padding = Indent;
+            child.BorderThickness = new Thickness(.5, 0, 0, 0);
             var lineSpacing = new Thickness(0, 4, 0, 0);
             Border.Margin = lineSpacing;
             ChildrenHolder.Margin = lineSpacing;
         }
 
-        private void OnChildRemoved(BlockStackPanel _, Block child) => child.Border.Padding = ZeroPadding;
+        private void OnChildRemoved(BlockStackPanel _, Block child) => child.Border.Padding = ZeroIndent;
 
         public List<object> GetToken()
         {

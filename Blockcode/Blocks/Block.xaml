@@ -8,6 +8,7 @@
                                FontSize="20"
                                AllowDrop="True"
                                Background="White"
+                               BorderBrush="#b8b8b8"
                                d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
