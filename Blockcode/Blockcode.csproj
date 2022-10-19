@@ -55,14 +55,14 @@
           <DependentUpon>Block.xaml</DependentUpon>
         </Compile>
         <Compile Include="ExtendedUserControl.cs" />
-        <Compile Include="Tabs\BlocksTab.xaml.cs">
-          <DependentUpon>BlocksTab.xaml</DependentUpon>
+        <Compile Include="Sections\BlocksSection.xaml.cs">
+          <DependentUpon>BlocksSection.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Tabs\OutputTab.xaml.cs">
-          <DependentUpon>OutputTab.xaml</DependentUpon>
+        <Compile Include="Sections\OutputSection.xaml.cs">
+          <DependentUpon>OutputSection.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Tabs\ScriptTab.xaml.cs">
-          <DependentUpon>ScriptTab.xaml</DependentUpon>
+        <Compile Include="Sections\ScriptSection.xaml.cs">
+          <DependentUpon>ScriptSection.xaml</DependentUpon>
         </Compile>
         <Page Include="Blocks\Block.xaml" />
         <Page Include="MainWindow.xaml">
@@ -79,9 +79,9 @@
             <DependentUpon>MainWindow.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Page Include="Tabs\BlocksTab.xaml" />
-        <Page Include="Tabs\OutputTab.xaml" />
-        <Page Include="Tabs\ScriptTab.xaml" />
+        <Page Include="Sections\BlocksSection.xaml" />
+        <Page Include="Sections\OutputSection.xaml" />
+        <Page Include="Sections\ScriptSection.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">

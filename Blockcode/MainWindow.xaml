@@ -8,9 +8,9 @@
         Title="Block Code" Height="600" Width="1000">
     <Grid>
         <DockPanel>
-            <local:BlocksTab x:Name="BlocksTab" />
-            <local:ScriptTab x:Name="ScriptTab" />
-            <local:OutputTab x:Name="OutputTab" />
+            <local:BlocksSection x:Name="BlocksSection" />
+            <local:ScriptSection x:Name="ScriptSection" />
+            <local:OutputSection x:Name="OutputSection" />
         </DockPanel>
     </Grid>
 </Window>

@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace Blockcode
 {
-    public partial class ScriptTab : UserControl
+    public partial class ScriptSection : UserControl
     {
-        public ScriptTab()
+        public ScriptSection()
         {
             InitializeComponent();
         }

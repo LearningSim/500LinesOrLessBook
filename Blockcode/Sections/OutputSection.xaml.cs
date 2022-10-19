@@ -6,13 +6,13 @@ using System.Windows.Shapes;
 
 namespace Blockcode
 {
-    public partial class OutputTab : UserControl
+    public partial class OutputSection : UserControl
     {
         public bool IsPenDown { get; set; }
         public Vector Position { get; set; }
         public double Angle { get; set; }
         public double Visible { get; set; }
-        public OutputTab()
+        public OutputSection()
         {
             InitializeComponent();
             //PenDown();
