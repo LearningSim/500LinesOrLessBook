@@ -48,7 +48,7 @@ namespace Blockcode
         private void OnDragLeave(object sender, DragEventArgs e)
         {
             e.Handled = true;
-            ((Block)sender).HideDropIndicator();
+            (sender as Block)?.HideDropIndicator();
         }
 
         private void BlocksTabOnMouseDown(object sender, MouseButtonEventArgs e) =>
