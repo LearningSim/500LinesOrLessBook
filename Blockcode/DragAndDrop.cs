@@ -25,6 +25,8 @@ namespace Blockcode
             }
 
             scriptSection.BlankArea.PreviewDrop += ScriptSectionOnDrop;
+            scriptSection.DragEnter += OnDragEnter;
+            scriptSection.DragLeave += OnDragLeave;
             foreach (Block block in scriptSection.BlocksHolder.Children)
             {
                 AddScriptSectionHandlers(block);
@@ -43,13 +45,13 @@ namespace Blockcode
         private void OnDragEnter(object sender, DragEventArgs e)
         {
             e.Handled = true;
-            ((Block)sender).ShowDropIndicator();
+            ((IDropIndicatorHolder)sender).ShowDropIndicator();
         }
 
         private void OnDragLeave(object sender, DragEventArgs e)
         {
             e.Handled = true;
-            (sender as Block)?.HideDropIndicator();
+            (sender as IDropIndicatorHolder ?? scriptSection)?.HideDropIndicator();
         }
 
         private void BlocksTabOnMouseDown(object sender, MouseButtonEventArgs e) =>

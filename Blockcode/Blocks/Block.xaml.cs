@@ -9,7 +9,7 @@ using System.Windows.Media;
 namespace Blockcode
 {
     [ContentProperty(nameof(Children))]
-    public partial class Block : ExtendedUserControl
+    public partial class Block : ExtendedUserControl, IDropIndicatorHolder
     {
         public event Action ValueUpdated = delegate { };
         public bool IsStub { get; set; }

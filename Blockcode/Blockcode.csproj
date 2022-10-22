@@ -55,6 +55,7 @@
           <DependentUpon>Block.xaml</DependentUpon>
         </Compile>
         <Compile Include="DragAndDrop.cs" />
+        <Compile Include="IDropIndicatorHolder.cs" />
         <Compile Include="ExtendedUserControl.cs" />
         <Compile Include="Extensions.cs" />
         <Compile Include="Sections\BlocksSection.xaml.cs">

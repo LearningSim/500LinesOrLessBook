@@ -20,7 +20,9 @@
                                 <local:Block Label="Glide" Value="90" Units="steps" LabelColor="#9966ff" />
                             </local:Block>
                         </StackPanel>
-                        <Canvas x:Name="BlankArea" AllowDrop="True" Background="Transparent" MinHeight="40"></Canvas>
+                        <Border BorderThickness="0,2,0,0" x:Name="DropIndicator">
+                            <Canvas x:Name="BlankArea" AllowDrop="True" Background="Transparent" MinHeight="40" />
+                        </Border>
                     </DockPanel>
                 </ScrollViewer>
             </DockPanel>
