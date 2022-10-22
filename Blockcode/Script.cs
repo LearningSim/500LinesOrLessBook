@@ -42,7 +42,7 @@ namespace Blockcode
         {
             for (int i = 0; i < block.Value; i++)
             {
-                foreach (Block child in block.Children)
+                foreach (Block child in block.GetChildren())
                 {
                     await RunBlock(child, token);
                     if(token.IsCancellationRequested) return;

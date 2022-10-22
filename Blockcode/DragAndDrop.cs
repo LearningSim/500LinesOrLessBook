@@ -8,7 +8,7 @@ namespace Blockcode
     public class DragAndDrop
     {
         public event Action ScriptUpdated = delegate { };
-        
+
         private readonly BlocksSection blocksSection;
         private readonly ScriptSection scriptSection;
         private UserControl startSection;
@@ -17,7 +17,7 @@ namespace Blockcode
         {
             this.blocksSection = blocksSection;
             this.scriptSection = scriptSection;
-            
+
             blocksSection.PreviewDrop += BlocksSectionOnDrop;
             foreach (Block block in blocksSection.BlocksHolder.Children)
             {
@@ -29,8 +29,6 @@ namespace Blockcode
             {
                 AddScriptSectionHandlers(block);
             }
-
-            ScriptUpdated();
         }
 
         private void AddScriptSectionHandlers(Block block)
@@ -102,18 +100,15 @@ namespace Blockcode
                     scriptSection.BlocksHolder.Children.Add(droppedClone);
                 }
             }
+            else if (targetBlock != null)
+            {
+                dropped.Remove();
+                dropped.AddBefore(targetBlock);
+            }
             else
             {
-                if (targetBlock != null)
-                {
-                    dropped.Remove();
-                    dropped.AddBefore(targetBlock);
-                }
-                else
-                {
-                    dropped.Remove();
-                    scriptSection.BlocksHolder.Children.Add(dropped);
-                }
+                dropped.Remove();
+                scriptSection.BlocksHolder.Children.Add(dropped);
             }
 
             ScriptUpdated();

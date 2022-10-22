@@ -38,6 +38,7 @@ namespace Blockcode
                 {"Show turtle", OutputSection.ShowTurtle},
                 {"Repeat", script.Repeat},
             };
+            OnScriptUpdated();
         }
 
         private void OnScriptUpdated()
