@@ -15,12 +15,13 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Focusable="False">
                     <StackPanel Margin="0,0,10,0" x:Name="BlocksHolder">
                         <local:Block Label="Repeat" Value="10" IsContainer="True" LabelColor="#ff8c1a" />
-                        <local:Block Label="Turn left" Value="5" Units="degrees" LabelColor="#9966ff" Action="{Binding TurnLeft}" />
-                        <local:Block Label="Turn right" Value="5" Units="degrees" LabelColor="#9966ff" Action="{Binding TurnRight}" />
-                        <local:Block Label="Forward" Value="10" Units="steps" LabelColor="#9966ff" Action="{Binding Forward}" />
-                        <local:Block Label="Back" Value="10" Units="steps" LabelColor="#9966ff" Action="{Binding Back}" />
-                        <local:Block Label="Pen up" LabelColor="#9966ff" Action="{Binding PenUp}" />
-                        <local:Block Label="Pen down" LabelColor="#9966ff" Action="{Binding PenDown}" />
+                        <local:Block Label="Turn left" Value="5" Units="degrees" LabelColor="#9966ff" />
+                        <local:Block Label="Turn right" Value="5" Units="degrees" LabelColor="#9966ff" />
+                        <local:Block Label="Forward" Value="10" Units="steps" LabelColor="#9966ff" />
+                        <local:Block Label="Back" Value="10" Units="steps" LabelColor="#9966ff" />
+                        <local:Block Label="Glide" Value="10" Units="steps" LabelColor="#9966ff" />
+                        <local:Block Label="Pen up" LabelColor="#9966ff" />
+                        <local:Block Label="Pen down" LabelColor="#9966ff" />
                         <local:Block Label="Back to center" LabelColor="#9966ff" />
                         <local:Block Label="Hide turtle" LabelColor="#9966ff" />
                         <local:Block Label="Show turtle" LabelColor="#9966ff" />

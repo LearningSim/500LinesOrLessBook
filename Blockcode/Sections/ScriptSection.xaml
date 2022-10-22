@@ -16,8 +16,8 @@
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Margin="0,0,10,0" x:Name="BlocksHolder">
                             <local:Block Label="Repeat" Value="3" IsContainer="True" LabelColor="#ff8c1a">
-                                <local:Block Label="Left" Value="120" Units="degrees" LabelColor="#9966ff" />
-                                <local:Block Label="Forward" Value="90" Units="steps" LabelColor="#9966ff" />
+                                <local:Block Label="Turn left" Value="120" Units="degrees" LabelColor="#9966ff" />
+                                <local:Block Label="Glide" Value="90" Units="steps" LabelColor="#9966ff" />
                             </local:Block>
                         </StackPanel>
                         <Canvas x:Name="BlankArea" AllowDrop="True" Background="Transparent" MinHeight="40"></Canvas>

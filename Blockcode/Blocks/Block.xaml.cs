@@ -11,10 +11,22 @@ namespace Blockcode
     [ContentProperty(nameof(Children))]
     public partial class Block : ExtendedUserControl
     {
+        public event Action ValueUpdated = delegate { };
         public bool IsStub { get; set; }
         public string Label { get; set; } = "Block Name";
         public Brush LabelColor { get; set; } = Brushes.Black;
-        public int? Value { get; set; }
+
+        private int? value;
+        public int? Value
+        {
+            get => value;
+            set
+            {
+                this.value = value;
+                ValueUpdated();
+            }
+        }
+
         public Visibility ValueVisibility => Value == null ? Visibility.Collapsed : Visibility.Visible;
         public string Units { get; set; }
 

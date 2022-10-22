@@ -7,6 +7,8 @@ namespace Blockcode
 {
     public class DragAndDrop
     {
+        public event Action ScriptUpdated = delegate { };
+        
         private readonly BlocksSection blocksSection;
         private readonly ScriptSection scriptSection;
         private UserControl startSection;
@@ -27,6 +29,8 @@ namespace Blockcode
             {
                 AddScriptSectionHandlers(block);
             }
+
+            ScriptUpdated();
         }
 
         private void AddScriptSectionHandlers(Block block)
@@ -35,6 +39,7 @@ namespace Blockcode
             AddHandlerRecursively(block, b => b.Drop += ScriptSectionOnDrop);
             AddHandlerRecursively(block, b => b.DragEnter += OnDragEnter);
             AddHandlerRecursively(block, b => b.DragLeave += OnDragLeave);
+            AddHandlerRecursively(block, b => b.ValueUpdated += () => ScriptUpdated());
         }
 
         private void OnDragEnter(object sender, DragEventArgs e)
@@ -72,6 +77,7 @@ namespace Blockcode
             if (startSection == scriptSection)
             {
                 dropped.Remove();
+                ScriptUpdated();
             }
         }
 
@@ -109,6 +115,8 @@ namespace Blockcode
                     scriptSection.BlocksHolder.Children.Add(dropped);
                 }
             }
+
+            ScriptUpdated();
         }
 
         private void AddHandlerRecursively(Block block, Action<Block> addHandler)
