@@ -1,11 +1,11 @@
 using System;
-using System.IO;
+using System.Diagnostics;
 
 namespace Blockcode
 {
     public static class Logger
     {
-        public static void Log(string message) =>
-            File.AppendAllText("../../log.log", $"{DateTime.Now}|{message}\n");
+        public static void Log(object message) =>
+            Trace.WriteLine($"Trace|{DateTime.Now}|{message}");
     }
 }
