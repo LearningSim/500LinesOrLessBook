@@ -37,6 +37,8 @@ namespace Blockcode
                 {"Hide turtle", OutputSection.HideTurtle},
                 {"Show turtle", OutputSection.ShowTurtle},
                 {"Repeat", script.Repeat},
+                {"Forever", script.Forever},
+                {"Wait", script.Wait},
             };
             OnScriptUpdated();
         }

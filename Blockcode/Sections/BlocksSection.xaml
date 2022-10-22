@@ -14,7 +14,9 @@
                            FontWeight="DemiBold" Margin="0, 10" />
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Focusable="False">
                     <StackPanel Margin="0,0,10,0" x:Name="BlocksHolder">
+                        <local:Block Label="Wait" Value="10" Units="ms" LabelColor="#ff8c1a" />
                         <local:Block Label="Repeat" Value="10" IsContainer="True" LabelColor="#ff8c1a" />
+                        <local:Block Label="Forever" IsContainer="True" LabelColor="#ff8c1a" />
                         <local:Block Label="Turn left" Value="5" Units="degrees" LabelColor="#9966ff" />
                         <local:Block Label="Turn right" Value="5" Units="degrees" LabelColor="#9966ff" />
                         <local:Block Label="Forward" Value="10" Units="steps" LabelColor="#9966ff" />

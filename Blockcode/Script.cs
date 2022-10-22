@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace Blockcode
             foreach (var block in blocks)
             {
                 await RunBlock(block, cts.Token);
-                if(cts.Token.IsCancellationRequested) return;
+                if (cts.Token.IsCancellationRequested) return;
             }
         }
 
@@ -40,14 +41,36 @@ namespace Blockcode
 
         public async Task Repeat(Block block, CancellationToken token)
         {
+            var children = block.GetChildren();
             for (int i = 0; i < block.Value; i++)
             {
-                foreach (Block child in block.GetChildren())
-                {
-                    await RunBlock(child, token);
-                    if(token.IsCancellationRequested) return;
-                }
+                if (await RunBlocks(children, token)) return;
             }
         }
+
+        public async Task Forever(Block block, CancellationToken token)
+        {
+            var children = block.GetChildren();
+            if(children.All(c => c.IsStub)) return;
+            
+            while (true)
+            {
+                if (await RunBlocks(children, token)) return;
+                await Task.Delay(1, token);
+            }
+        }
+
+        private async Task<bool> RunBlocks(IReadOnlyList<Block> blocks, CancellationToken token)
+        {
+            foreach (var child in blocks)
+            {
+                await RunBlock(child, token);
+                if (token.IsCancellationRequested) return true;
+            }
+
+            return false;
+        }
+
+        public async Task Wait(Block block, CancellationToken token) => await Task.Delay(block.Value.Value, token);
     }
 }
