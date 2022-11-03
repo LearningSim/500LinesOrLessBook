@@ -18,6 +18,15 @@
       <None Update="update_repo.sh">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Remove="test_repo_clone_obs\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="test_repo_clone_obs\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="test_repo_clone_obs\**" />
     </ItemGroup>
 
 </Project>
