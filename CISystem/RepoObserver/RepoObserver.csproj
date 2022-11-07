@@ -29,4 +29,8 @@
       <EmbeddedResource Remove="test_repo_clone_obs\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Shared\Shared.csproj" />
+    </ItemGroup>
+
 </Project>
