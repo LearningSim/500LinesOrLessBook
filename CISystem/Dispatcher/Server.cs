@@ -55,7 +55,7 @@ public class Server
                 Console.WriteLine("got test results");
                 var (commitId, tests) = msg.SplitByFirst(":");
                 DispatchedCommits.Remove(commitId!);
-                File.WriteAllText($"test_results/{commitId}", tests);
+                await File.WriteAllTextAsync($"test_results/{commitId}", tests);
                 socket.ResponseAsync(ServerState.Success).DoNotAwait();
             }
             else

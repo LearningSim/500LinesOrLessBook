@@ -50,6 +50,9 @@ public class Dispatcher
         server.Runners.Remove(runner);
     }
 
+    /// <summary>
+    /// kick off tests that failed
+    /// </summary>
     private static async Task Redistribute()
     {
         while (!server.IsDead)
